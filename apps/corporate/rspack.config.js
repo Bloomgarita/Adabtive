@@ -29,7 +29,7 @@ module.exports = {
       index: './src/index.html',
       // Set baseHref for GitHub Pages deployment (still useful for some scenarios)
       baseHref: isProduction ? '/Adabtive/' : '/',
-      assets: [], // Keep favicon, remove assets dir as images moved to public
+      assets: ['./src/favicon.ico'], // Ensure favicon from src is included
       styles: [],
       outputHashing: isProduction ? 'all' : 'none',
       optimization: isProduction,

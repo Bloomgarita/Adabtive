@@ -5,6 +5,10 @@ import StarIcon from '@mui/icons-material/Star';
 // Removed image import
 
 const ContactCtaSection = () => {
+  // Conditionally set base path for images
+  const isProduction = process.env['NODE_ENV'] === 'production';
+  const basePath = isProduction ? '/Adabtive' : '';
+
   return (
     <Box
       sx={{
@@ -12,8 +16,8 @@ const ContactCtaSection = () => {
         position: 'relative', // Needed for overlay
         overflow: 'hidden',
         color: 'common.white', // Text is white over the dark background/overlay
-        // Apply background image using absolute path from public dir
-        backgroundImage: `url(/HeroBg.png)`,
+        // Apply background image using conditional path
+        backgroundImage: `url(${basePath}/HeroBg.png)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         '&::before': {

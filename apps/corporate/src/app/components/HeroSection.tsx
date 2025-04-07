@@ -3,17 +3,21 @@ import { Box, Container, Typography, Button, Stack } from '@mui/material';
 // Revert to standard MUI icons
 import StarIcon from '@mui/icons-material/Star';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-// Removed image imports as they are now referenced via absolute paths from public dir
+// Removed image imports
 
 const HeroSection = () => {
+  // Conditionally set base path for images
+  const isProduction = process.env['NODE_ENV'] === 'production';
+  const basePath = isProduction ? '/Adabtive' : '';
+
   return (
     <Box
       sx={{
         position: 'relative',
         color: 'text.primary',
         overflow: 'hidden',
-        // Apply background image using absolute path from public dir
-        backgroundImage: `url(/HeroBg.png)`,
+        // Apply background image using conditional path
+        backgroundImage: `url(${basePath}/HeroBg.png)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         pt: { xs: 10, md: `calc(112px + 80px)` },
@@ -91,10 +95,10 @@ const HeroSection = () => {
             </Stack>
           </Stack>
 
-          {/* Actual Image using absolute path */}
+          {/* Actual Image using conditional path */}
           <Box
             component="img"
-            src="/HeroImage.svg" // Use absolute path from public dir
+            src={`${basePath}/HeroImage.svg`} // Use conditional path
             alt="Hero Image"
             sx={{
               width: { xs: '80%', sm: '60%', md: '45%' },
