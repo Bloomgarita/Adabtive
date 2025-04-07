@@ -3,6 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "nx": {
-    "name": "corporate"
+    "name": "corporate",
+    "targets": {
+      "deploy": {
+        "command": "gh-pages -d apps/corporate/dist",
+        "dependsOn": [
+          "build"
+        ]
+      }
+    }
   }
 }

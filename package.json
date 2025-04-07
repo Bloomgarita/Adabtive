@@ -2,9 +2,7 @@
   "name": "@adabtive/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {
-    "deploy": "gh-pages -d apps/corporate/dist"
-  },
+  "scripts": {},
   "private": true,
   "dependencies": {
     "@emotion/react": "11.11.1",
