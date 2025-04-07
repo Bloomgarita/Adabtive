@@ -19,7 +19,8 @@ module.exports = {
       tsConfig: './tsconfig.app.json',
       main: './src/main.tsx',
       index: './src/index.html',
-      baseHref: '/',
+      // Set baseHref for GitHub Pages deployment
+      baseHref: process.env['NODE_ENV'] === 'production' ? '/Adabtive/' : '/',
       assets: ['./src/favicon.ico', './src/assets'],
       styles: [],
       outputHashing: process.env['NODE_ENV'] === 'production' ? 'all' : 'none',
