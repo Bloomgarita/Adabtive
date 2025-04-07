@@ -1,0 +1,8 @@
+{
+  "name": "@adabtive/corporate",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "corporate"
+  }
+}
