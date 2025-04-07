@@ -9,116 +9,219 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  useTheme,
+  // Removed useTheme import
   useMediaQuery,
   Drawer,
   List,
   ListItem,
-  ListItemButton, // Added ListItemButton import
+  ListItemButton,
   ListItemText,
-  ListItemIcon,
-  Theme, // Added Theme import
+  // Removed Theme import
 } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles'; // Removed styled import
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import LanguageIcon from '@mui/icons-material/Language'; // Placeholder for language
+import LanguageIcon from '@mui/icons-material/Language';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
-import HeroSection from './components/HeroSection'; // Import the HeroSection
-import AboutUsSection from './components/AboutUsSection'; // Import the AboutUsSection
-import WhatWeDoSection from './components/WhatWeDoSection'; // Import the WhatWeDoSection
-import ContactCtaSection from './components/ContactCtaSection'; // Import the ContactCtaSection
-import HowWeDoItSection from './components/HowWeDoItSection'; // Import the HowWeDoItSection
+import HeroSection from './components/HeroSection';
+import AboutUsSection from './components/AboutUsSection';
+import WhatWeDoSection from './components/WhatWeDoSection';
+import ContactCtaSection from './components/ContactCtaSection';
+import HowWeDoItSection from './components/HowWeDoItSection';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
 
-// Define a basic theme based on the design (adjust colors as needed)
+// Define theme based on Figma styles
 const theme = createTheme({
   palette: {
-    mode: 'dark', // Based on the dark background
+    mode: 'dark',
     primary: {
-      main: '#E0B828', // Yellow color from buttons/highlights
+      main: '#FFF861', // Figma Yellow
+    },
+    secondary: {
+      main: '#F0F98F', // Figma Tag Yellow
     },
     background: {
-      default: '#121212', // Dark background
-      paper: '#1E1E1E', // Slightly lighter dark for surfaces like AppBar
+      default: '#0D0D0D', // Figma Dark Background
+      paper: '#212121', // Figma Navbar Background
     },
     text: {
-      primary: '#FFFFFF',
-      secondary: '#B0B0B0',
+      primary: '#FFFFFF', // Figma White
+      secondary: '#AFFKP0', // Figma Dark Grey Text (#2F2F2F on light bg, using AFFKP0 from Figma data for dark bg)
+      disabled: 'rgba(255, 255, 255, 0.7)', // Figma Search Placeholder
+    },
+    common: {
+      black: '#000000',
+      white: '#FFFFFF',
+    },
+    grey: {
+      '100': '#F9F9F9', // Figma Light Background
+      '800': '#2F2F2F', // Figma Dark Grey Text
+      '900': '#1D1D1D', // Figma Darker Background Layer
     },
   },
   typography: {
-    fontFamily: 'inherit', // Use system fonts or specify one
+    fontFamily: '"Nunito", sans-serif',
     h1: {
-      fontSize: '2.5rem',
-      fontWeight: 700,
+      fontFamily: '"Outfit", sans-serif',
+      fontSize: '54px',
+      fontWeight: 600,
+      lineHeight: 1.11,
     },
     h2: {
-      fontSize: '2rem',
+      fontFamily: '"Outfit", sans-serif',
+      fontSize: '48px',
       fontWeight: 700,
+      lineHeight: 1.26,
     },
+    h3: {
+      fontFamily: '"Outfit", sans-serif',
+      fontSize: '40px',
+      fontWeight: 700,
+      lineHeight: 1.26,
+    },
+    h4: {
+      fontFamily: '"Lato", sans-serif',
+      fontSize: '20px',
+      fontWeight: 700,
+      lineHeight: 1.2,
+      textTransform: 'capitalize',
+    },
+    h5: {
+      fontFamily: '"Outfit", sans-serif',
+      fontSize: '20px',
+      fontWeight: 600,
+      lineHeight: 1.26,
+    },
+    h6: {
+      fontFamily: '"Poppins", sans-serif',
+      fontSize: '16px',
+      fontWeight: 500,
+      lineHeight: 1.12,
+      textTransform: 'capitalize',
+    }, // Logo style
     body1: {
-      fontSize: '1rem',
+      fontFamily: '"Nunito", sans-serif',
+      fontSize: '15px',
+      fontWeight: 400,
+      lineHeight: 1.36,
+    },
+    body2: {
+      fontFamily: '"Nunito", sans-serif',
+      fontSize: '13px',
+      fontWeight: 400,
+      lineHeight: 1.36,
     },
     button: {
-      textTransform: 'none', // Buttons in design don't seem uppercase
+      fontFamily: '"Raleway", sans-serif',
+      fontWeight: 600,
+      fontSize: '13px',
+      lineHeight: 1.17,
+      textTransform: 'none',
+    },
+    subtitle1: {
+      // For Nav items and Top bar text
+      fontFamily: '"Nunito", sans-serif',
+      fontWeight: 500,
+      fontSize: '15px',
+      lineHeight: 1.36,
+      textTransform: 'capitalize',
+    },
+    caption: {
+      // For tags like "About Us"
+      fontFamily: '"Nunito", sans-serif',
+      fontWeight: 600,
+      fontSize: '10px',
+      lineHeight: 1.36,
+      textTransform: 'uppercase',
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
-        root: {
-          borderRadius: 0, // Square buttons
-        },
-        containedPrimary: {
-          color: '#000000', // Black text on yellow button
-        },
+        root: ({ ownerState, theme: ownerTheme }) => ({
+          // Renamed theme to ownerTheme to avoid conflict
+          borderRadius: '8px 8px 0px 8px', // Default from "Learn More"
+          ...(ownerState.variant === 'contained' &&
+            ownerState.color === 'primary' && {
+              color: ownerTheme.palette.common.black, // Black text on primary button
+              borderRadius: '10px 10px 0px 10px', // Specific for "Contact Us" primary
+            }),
+        }),
       },
     },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgba(0, 0, 0, 0.8)', // Semi-transparent black
+          backgroundColor: '#212121', // Figma Navbar Background
           boxShadow: 'none',
+        },
+      },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        dense: {
+          minHeight: '40px',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+        },
+        regular: {
+          minHeight: '72px',
+        },
+      },
+    },
+    MuiContainer: {
+      defaultProps: {
+        maxWidth: 'lg', // Set default maxWidth based on Figma usage
+      },
+      styleOverrides: {
+        root: {
+          '@media (min-width:1200px)': {
+            // Match lg breakpoint
+            // maxWidth: '1180px', // Example if specific width needed instead of lg
+            paddingLeft: '0px', // Remove padding based on disableGutters usage
+            paddingRight: '0px', // Remove padding based on disableGutters usage
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            backgroundColor: 'rgba(0, 0, 0, 0.57)',
+            borderRadius: '8px',
+            paddingRight: '12px',
+            '& fieldset': { border: 'none' },
+            '&:hover fieldset': { border: 'none' },
+            '&.Mui-focused fieldset': { border: 'none' },
+          },
+          '& .MuiInputBase-input': {
+            color: 'rgba(255, 255, 255, 0.7)',
+            fontSize: '15px',
+            fontFamily: '"Nunito", sans-serif',
+            padding: '10px 0px 10px 12px',
+            height: 'auto',
+          },
+        },
+      },
+    },
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          color: 'rgba(255, 255, 255, 0.7)',
         },
       },
     },
   },
 });
 
-/* // Removed Logo definition
-const Logo = styled(Typography)(({ theme }) => ({
-  fontWeight: 'bold',
-  flexGrow: 1, // Pushes other items to the right
-  cursor: 'pointer',
-}));
-*/
-
-/* // Removed NavLink definition
-const NavLink = styled(Button)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  margin: theme.spacing(0, 1),
-  '&:hover': {
-    color: theme.palette.primary.main,
-  },
-}));
-*/
-
-/* // Removed TopBarInfo definition
-const TopBarInfo = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(2),
-  marginRight: theme.spacing(2),
-}));
-*/
-
 const navItems = ['Home', 'About Us', 'Our Services', 'Our Team', 'Contacts'];
 
 export function App() {
-  const muiTheme = useTheme();
-  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+  // Use theme defined outside for useMediaQuery
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [langAnchorEl, setLangAnchorEl] = React.useState<null | HTMLElement>(
     null
@@ -136,74 +239,60 @@ export function App() {
     setLangAnchorEl(null);
   };
 
+  // Drawer content definition
   const drawer = (
     <Box
       onClick={handleDrawerToggle}
       sx={{ textAlign: 'center', bgcolor: 'background.paper', height: '100%' }}
     >
       <Typography variant="h6" sx={{ my: 2 }}>
-        LOGO
+        Logo {/* Use text Logo */}
       </Typography>
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+              <ListItemText primary={item} sx={{ typography: 'subtitle1' }} />{' '}
+              {/* Apply style */}
             </ListItemButton>
           </ListItem>
         ))}
       </List>
-      <Box sx={{ p: 2, borderTop: '1px solid grey' }}>
-        <IconButton color="inherit">
-          <SearchIcon />
-        </IconButton>
-        <IconButton color="inherit" onClick={handleLangMenuOpen}>
-          <LanguageIcon />
-        </IconButton>
-        <IconButton color="inherit">
-          <MailOutlineIcon sx={{ mr: 0.5 }} />
-        </IconButton>
-        <IconButton color="inherit">
-          <PhoneIcon sx={{ mr: 0.5 }} />
-        </IconButton>
-      </Box>
+      {/* Removed unused icons from mobile drawer example */}
+      {/* <Box sx={{ p: 2, borderTop: '1px solid grey' }}> ... </Box> */}
     </Box>
   );
 
   return (
     <ThemeProvider theme={theme}>
+      {' '}
+      {/* Apply the theme */}
       <CssBaseline />
-      <AppBar component="nav" position="sticky" sx={{ bgcolor: '#000' }}>
-        {' '}
-        {/* Darker background for AppBar */}
-        <Container maxWidth="lg">
+      <AppBar component="nav" position="sticky">
+        <Container>
+          {' '}
+          {/* Use default maxWidth from theme overrides */}
           {/* Top Bar for Desktop */}
           {!isMobile && (
             <Toolbar
-              variant="dense" // Makes the top bar shorter
+              variant="dense"
               disableGutters
-              sx={{
-                justifyContent: 'flex-end', // Align items to the right
-                borderBottom: '1px solid rgba(255, 255, 255, 0.1)', // Subtle separator
-                minHeight: '40px', // Adjust height as needed
-                px: 2, // Add some padding
-              }}
+              sx={{ justifyContent: 'flex-end' }}
             >
-              <Box // Using Box with sx instead of TopBarInfo
-                sx={(theme: Theme) => ({
-                  // Added Theme type
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: theme.spacing(2),
-                  // marginRight: theme.spacing(2), // Removed margin, handled by justify/gap
-                })}
-              >
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
                 <Button
                   color="inherit"
-                  size="small" // Smaller button for top bar
-                  startIcon={<LanguageIcon />}
+                  size="small"
+                  startIcon={<LanguageIcon sx={{ fontSize: '16px' }} />}
                   onClick={handleLangMenuOpen}
-                  sx={{ fontSize: '0.8rem' }} // Smaller text
+                  sx={{
+                    typography: 'subtitle1',
+                    textTransform: 'uppercase',
+                    minWidth: 'auto',
+                    p: 0,
+                    gap: '4px',
+                    '& .MuiButton-startIcon': { margin: 0 },
+                  }}
                 >
                   EN
                 </Button>
@@ -216,41 +305,29 @@ export function App() {
                   {/* Add other languages here */}
                 </Menu>
                 <Typography
-                  variant="body2"
+                  variant="subtitle1"
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    fontSize: '0.8rem',
-                  }} // Smaller text
+                    gap: '8px',
+                    textTransform: 'lowercase',
+                  }}
                 >
-                  <MailOutlineIcon sx={{ mr: 0.5, fontSize: '1rem' }} />
+                  <MailOutlineIcon sx={{ fontSize: '16px' }} />
                   iam@adabtive.nl
                 </Typography>
                 <Typography
-                  variant="body2"
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    fontSize: '0.8rem',
-                  }} // Smaller text
+                  variant="subtitle1"
+                  sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}
                 >
-                  <PhoneIcon sx={{ mr: 0.5, fontSize: '1rem' }} />
-                  +31 640 392 596 {/* Updated Phone Number */}
+                  <PhoneIcon sx={{ fontSize: '16px' }} />
+                  +31 640 392 596
                 </Typography>
-                <IconButton color="inherit" size="small">
-                  {' '}
-                  {/* Smaller icon button */}
-                  <SearchIcon sx={{ fontSize: '1.2rem' }} />{' '}
-                  {/* Slightly larger icon */}
-                </IconButton>
               </Box>
             </Toolbar>
           )}
           {/* Main Navigation Bar */}
-          <Toolbar
-            disableGutters
-            sx={{ minHeight: '64px' /* Standard height */, px: 2 }}
-          >
+          <Toolbar disableGutters sx={{ alignItems: 'center' }}>
             {isMobile ? (
               <>
                 <IconButton
@@ -258,95 +335,107 @@ export function App() {
                   aria-label="open drawer"
                   edge="start"
                   onClick={handleDrawerToggle}
-                  sx={{ mr: 2 }}
+                  sx={{ mr: 2, display: { md: 'none' } }}
                 >
                   <MenuIcon />
                 </IconButton>
-                <Typography // Logo for Mobile
-                  variant="h6"
-                  component="div"
-                  sx={{ fontWeight: 'bold', flexGrow: 1, cursor: 'pointer' }}
-                >
-                  LOGO
-                </Typography>
-                {/* Search icon moved to drawer for mobile consistency */}
-              </>
-            ) : (
-              <>
-                <Typography // Logo for Desktop
+                <Typography
                   variant="h6"
                   component="div"
                   sx={{
-                    fontWeight: 'bold',
+                    flexGrow: 1,
                     cursor: 'pointer',
-                    mr: 4 /* Add margin */,
-                  }} // Removed flexGrow
+                    display: { md: 'none' },
+                  }}
                 >
-                  LOGO
+                  Logo
+                </Typography>
+              </>
+            ) : (
+              <>
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ cursor: 'pointer', mr: '40px' }}
+                >
+                  Logo
                 </Typography>
                 <Box
                   sx={{
                     display: 'flex',
                     flexGrow: 1,
                     justifyContent: 'center',
+                    gap: '40px',
                   }}
                 >
                   {navItems.map((item) => (
-                    <Button // Using Button with sx instead of NavLink
+                    <Button
                       key={item}
-                      sx={(theme: Theme) => ({
-                        // Added Theme type
-                        color: theme.palette.text.primary,
-                        margin: theme.spacing(0, 1),
+                      color="inherit"
+                      sx={{
+                        typography: 'subtitle1',
+                        p: 0,
+                        minWidth: 'auto',
                         '&:hover': {
-                          color: theme.palette.primary.main,
+                          color: 'primary.main',
+                          backgroundColor: 'transparent',
                         },
-                      })}
+                      }}
                     >
                       {item}
                     </Button>
                   ))}
                 </Box>
-                <Box // Using Box with sx instead of TopBarInfo
-                  sx={(theme: Theme) => ({
-                    // Added Theme type
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: theme.spacing(2),
-                    // Top Bar elements moved above
-                  })}
-                >
-                  {/* Top Bar elements are now in the separate Toolbar */}
-                </Box>
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  placeholder="Search"
+                  sx={{ width: '256px' }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </>
             )}
           </Toolbar>
         </Container>
       </AppBar>
+      {/* Mobile Drawer */}
       <Box component="nav">
         <Drawer
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
+          ModalProps={{ keepMounted: true }}
           sx={{
             display: { xs: 'block', md: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: 240,
+              bgcolor: 'background.paper',
+            },
           }}
         >
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main">
+      {/* Main Content Area */}
+      <Box component="main" sx={{ bgcolor: 'background.default' }}>
+        {' '}
+        {/* Ensure main content uses default background */}
         <HeroSection />
         <AboutUsSection />
         <WhatWeDoSection />
         <ContactCtaSection />
         <HowWeDoItSection />
         {/* Placeholder for Contact Form section */}
-        <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Container sx={{ py: 4 }}>
+          {' '}
+          {/* Use default maxWidth */}
           <Typography variant="h4" gutterBottom>
             Placeholder for Contact Form Section
           </Typography>

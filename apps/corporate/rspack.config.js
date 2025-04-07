@@ -12,6 +12,10 @@ module.exports = {
   },
   devServer: {
     port: 4200,
+    // Explicitly serve static files from the src directory
+    static: {
+      directory: join(__dirname, 'src'), // Point to src directory
+    },
     historyApiFallback: {
       index: '/index.html',
       disableDotRule: true,
