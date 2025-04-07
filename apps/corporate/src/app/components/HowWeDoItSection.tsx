@@ -42,7 +42,9 @@ const HowWeDoItSection = () => {
             <Typography variant="h3" component="h2">
               How we do
             </Typography>
-            <Typography variant="body1" sx={{ color: 'grey.800' }}>
+            <Typography variant="body1" color="text.secondary">
+              {' '}
+              {/* Changed color to text.secondary */}
               We want to do what we say and deliver what we promise. Every
               decision we make as a company is guided by our three core values:
             </Typography>

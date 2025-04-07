@@ -1,37 +1,38 @@
 import React from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Stack,
-  useTheme,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Container, Typography, Button, Stack } from '@mui/material';
 // Revert to standard MUI icons
 import StarIcon from '@mui/icons-material/Star';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+// Removed image imports as they are now referenced via absolute paths from public dir
 
 const HeroSection = () => {
-  // Removed unused theme and isMobile variables
-  // const theme = useTheme();
-  // const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
   return (
     <Box
       sx={{
         position: 'relative',
-        bgcolor: 'background.default',
         color: 'text.primary',
         overflow: 'hidden',
+        // Apply background image using absolute path from public dir
+        backgroundImage: `url(/HeroBg.png)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         pt: { xs: 10, md: `calc(112px + 80px)` },
-        pb: { xs: 10, md: 15 },
+        pb: { xs: 10, md: 20 },
+        '&::before': {
+          // Add dark overlay
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background:
+            'linear-gradient(rgba(13, 13, 13, 0.8), rgba(29, 29, 29, 0.9))',
+          zIndex: 1,
+        },
       }}
     >
-      {/* Background Elements Placeholder */}
-      {/* TODO: Implement Figma background elements */}
-
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
         <Stack
           direction={{ xs: 'column', md: 'row' }}
           spacing={{ xs: 4, md: 8 }}
@@ -60,7 +61,6 @@ const HeroSection = () => {
               <Button
                 variant="contained"
                 color="primary"
-                // Use standard MUI icon
                 startIcon={<StarIcon />}
                 sx={{
                   typography: 'button',
@@ -73,7 +73,6 @@ const HeroSection = () => {
               <Button
                 variant="outlined"
                 color="inherit"
-                // Use standard MUI icon
                 endIcon={<ArrowForwardIcon />}
                 sx={{
                   typography: 'button',
@@ -92,18 +91,20 @@ const HeroSection = () => {
             </Stack>
           </Stack>
 
-          {/* Image Placeholder */}
+          {/* Actual Image using absolute path */}
           <Box
+            component="img"
+            src="/HeroImage.svg" // Use absolute path from public dir
+            alt="Hero Image"
             sx={{
-              width: { md: '50%' },
-              height: { xs: 200, md: 400 },
-              bgcolor: 'grey.900',
+              width: { xs: '80%', sm: '60%', md: '45%' },
+              maxWidth: '500px',
+              height: 'auto',
               borderRadius: '30px',
               display: { xs: 'none', md: 'block' },
+              boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
             }}
-          >
-            <Typography sx={{ p: 2 }}>Image Placeholder</Typography>
-          </Box>
+          />
         </Stack>
       </Container>
     </Box>

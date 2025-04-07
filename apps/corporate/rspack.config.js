@@ -12,9 +12,9 @@ module.exports = {
   },
   devServer: {
     port: 4200,
-    // Explicitly serve static files from the src directory
+    // Explicitly serve static files from the public directory
     static: {
-      directory: join(__dirname, 'src'), // Point to src directory
+      directory: join(__dirname, 'public'), // Correct path to public directory
     },
     historyApiFallback: {
       index: '/index.html',
@@ -29,7 +29,7 @@ module.exports = {
       index: './src/index.html',
       // Set baseHref for GitHub Pages deployment (still useful for some scenarios)
       baseHref: isProduction ? '/Adabtive/' : '/',
-      assets: ['./src/favicon.ico', './src/assets'],
+      assets: [], // Keep favicon, remove assets dir as images moved to public
       styles: [],
       outputHashing: isProduction ? 'all' : 'none',
       optimization: isProduction,

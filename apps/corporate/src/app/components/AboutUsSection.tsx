@@ -61,17 +61,24 @@ const AboutUsSection = () => {
                 expertise of other companies within our family of specialized IT
                 businesses.
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography
+                variant="body1" // Keep body1, but adjust size/weight if needed
+                color="text.secondary"
+                sx={{ fontSize: '16px' /* Match style_48LLSO */ }}
+              >
                 Just tell us what you need — we’re happy to help!
               </Typography>
             </Stack>
             <Button
               variant="text"
               color="primary"
-              // Use standard MUI icon
-              endIcon={<ArrowForwardIcon />} // Reverted icon
+              // Use standard MUI icon, ensure color matches text
+              endIcon={<ArrowForwardIcon sx={{ color: 'primary.main' }} />}
               sx={{
-                typography: 'button',
+                // typography: 'button', // Use default button typography
+                fontFamily: '"Outfit", sans-serif', // Match style_YI29HE
+                fontSize: '13px', // Match style_YI29HE
+                fontWeight: 500, // Match style_YI29HE
                 p: 0,
                 alignSelf: 'flex-start',
                 '&:hover': {
